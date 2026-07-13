@@ -181,7 +181,7 @@ For Render, Railway, Fly.io, or a similar service:
 
 1. Provision PostgreSQL and set `DATABASE_URL`.
 2. Set `GEMINI_API_KEY`, `AI_REQUIRED=true`, a random 32+ character `JWT_SECRET`, and strong admin credentials.
-3. Build with `npm ci && npm run build`.
+3. Build with `npm ci --include=dev && npm run build` so TypeScript and type declarations are available even when `NODE_ENV=production`.
 4. Run the release commands with `npm run prisma:deploy && npm run db:seed:prod`.
 5. Start with `npm start`.
 6. Point the health check to `/health`, then verify `/docs` and submit a real AI-classified test report.
