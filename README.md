@@ -80,7 +80,7 @@ To seed the requested administrator, set these values in `.env` before running `
 
 ```bash
 ADMIN_EMAIL=admin@crisisdesk.app
-ADMIN_PASSWORD=<the-admin-password>
+ADMIN_PASSWORD=YDiUG956sJh4
 ```
 
 ### AI modes
