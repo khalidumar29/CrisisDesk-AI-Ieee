@@ -199,10 +199,3 @@ The included Dockerfile uses a multi-stage build and runs as the unprivileged `n
 
 This project uses Express, TypeScript, Prisma, PostgreSQL, Zod, Google Gen AI SDK, Swagger UI Express, JSON Web Token, bcrypt.js, express-rate-limit, Helmet, CORS, compression, Morgan, Vitest, and Supertest. These libraries and their respective licenses are credited here as required by the hackathon rules. Core architecture, triage orchestration, duplicate scoring, validation policy, and API design are implemented in this repository.
 
-## Submission checklist
-
-- [x] Create a new public GitHub repository and push this code during the allowed round
-- [x] Deploy the API and verify the live `/health`, `/docs`, and report submission endpoints
-- [ ] Record a Loom video showing the architecture diagram, Swagger demo, database record, duplicate match, admin status update, and analytics
-- [ ] Add the public repository, deployment URL, and Loom URL to the final submission form
-- [ ] Rotate all demonstration credentials before publishing
