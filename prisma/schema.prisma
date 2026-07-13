@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Language {
+  bn
+  en
+  unknown
+}
+
+enum Category {
+  medical
+  fire
+  accident
+  crime
+  flood
+  utility
+  public_service
+  infrastructure
+  other
+}
+
+enum Urgency {
+  low
+  medium
+  high
+  critical
+}
+
+enum ReportStatus {
+  pending
+  in_review
+  assigned
+  resolved
+  rejected
+}
+
+model Report {
+  id                String       @id @default(cuid())
+  name              String?
+  contact           String?
+  location          String
+  normalizedLocation String
+  description       String
+  language          Language     @default(unknown)
+  category          Category
+  urgency           Urgency
+  summary            String
+  suggestedAction   String
+  confidence        Float
+  possibleDuplicate Boolean      @default(false)
+  matchedReportId   String?
+  duplicateScore    Float?
+  status            ReportStatus @default(pending)
+  aiProvider        String
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  matchedReport Report?  @relation("Duplicates", fields: [matchedReportId], references: [id], onDelete: SetNull)
+  duplicates    Report[] @relation("Duplicates")
+
+  @@index([category])
+  @@index([urgency])
+  @@index([status])
+  @@index([createdAt])
+  @@index([normalizedLocation])
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         String   @default("admin")
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
