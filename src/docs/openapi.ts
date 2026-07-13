@@ -16,7 +16,7 @@ export const openapiDocument: OpenAPIV3.Document = {
       "Backend API for multilingual emergency and service-request intake, AI triage, duplicate detection, workflow management, and analytics.",
     license: { name: "MIT" },
   },
-  servers: [{ url: "http://localhost:4000", description: "Local development" }],
+  servers: [{ url: "/", description: "Current deployment" }],
   tags: [
     { name: "System" },
     { name: "Authentication" },
