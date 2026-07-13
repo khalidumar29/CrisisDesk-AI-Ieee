@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: crisisdesk
+      POSTGRES_PASSWORD: crisisdesk
+      POSTGRES_DB: crisisdesk
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U crisisdesk -d crisisdesk"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgresql://crisisdesk:crisisdesk@postgres:5432/crisisdesk?schema=public
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash-lite}
+      AI_REQUIRED: ${AI_REQUIRED:-false}
+      JWT_SECRET: ${JWT_SECRET:-replace-this-before-deployment-123456}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@crisisdesk.local}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-change-me-now}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
