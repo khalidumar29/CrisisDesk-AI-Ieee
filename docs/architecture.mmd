@@ -1,0 +1,12 @@
+flowchart LR
+    C["Citizen or API client"] -->|"POST report"| E["Express routes"]
+    A["Admin client"] -->|"JWT"| E
+    E --> Z["Zod validation and sanitization"]
+    Z --> S["Report service"]
+    S --> G["Gemini structured triage"]
+    G -.->|"Fallback on provider outage"| F["Deterministic classifier"]
+    S --> D["Hybrid duplicate detector"]
+    D --> R["Repository"]
+    S --> R
+    R --> P[("PostgreSQL")]
+    E --> W["Swagger and OpenAPI"]

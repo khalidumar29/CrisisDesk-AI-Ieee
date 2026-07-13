@@ -173,6 +173,10 @@ describe("CrisisDesk API", () => {
     expect((await request(app).get("/docs/")).status).toBe(200);
     const spec = await request(app).get("/openapi.json");
     expect(spec.status).toBe(200);
+    expect(spec.headers["content-disposition"]).toBe(
+      'attachment; filename="crisisdesk-openapi.json"',
+    );
+    expect(spec.headers["content-type"]).toMatch(/^application\/json/);
     expect(spec.body.paths["/api/reports"]).toBeDefined();
   });
 });

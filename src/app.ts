@@ -78,7 +78,12 @@ export function createApp({ env, repository, adminRepository, triage }: AppDepen
   app.get("/health", (_request, response) => {
     response.json({ success: true, status: "ok", timestamp: new Date().toISOString() });
   });
-  app.get("/openapi.json", (_request, response) => response.json(openapiDocument));
+  app.get("/openapi.json", (_request, response) => {
+    response
+      .attachment("crisisdesk-openapi.json")
+      .type("application/json")
+      .send(JSON.stringify(openapiDocument, null, 2));
+  });
   app.use("/docs", swaggerUi.serve, swaggerUi.setup(openapiDocument, { explorer: true }));
   app.use("/api/auth", createAuthRouter(new AuthController(authService)));
   app.use("/api/reports", createReportRouter(new ReportController(reportService), authService));
