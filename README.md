@@ -2,6 +2,13 @@
 
 CrisisDesk AI is a backend-only emergency and public-service triage API built for the AI & API Hackathon 2026. It accepts Bangla or English citizen reports, validates and sanitizes them, classifies urgency and category with Gemini, detects likely duplicates, stores the result in PostgreSQL, and exposes authenticated workflow management plus analytics APIs.
 
+## Live deployment
+
+- API: [https://crisisdesk-ai-api-v3da.onrender.com](https://crisisdesk-ai-api-v3da.onrender.com)
+- Swagger UI: [https://crisisdesk-ai-api-v3da.onrender.com/docs](https://crisisdesk-ai-api-v3da.onrender.com/docs)
+- OpenAPI JSON: [https://crisisdesk-ai-api-v3da.onrender.com/openapi.json](https://crisisdesk-ai-api-v3da.onrender.com/openapi.json)
+- Health check: [https://crisisdesk-ai-api-v3da.onrender.com/health](https://crisisdesk-ai-api-v3da.onrender.com/health)
+
 ## Feature checklist
 
 - [x] All six required report endpoints, including filterable list and summary analytics
@@ -195,7 +202,7 @@ This project uses Express, TypeScript, Prisma, PostgreSQL, Zod, Google Gen AI SD
 ## Submission checklist
 
 - [x] Create a new public GitHub repository and push this code during the allowed round
-- [ ] Deploy the API and verify the live `/health`, `/docs`, and report submission endpoints
+- [x] Deploy the API and verify the live `/health`, `/docs`, and report submission endpoints
 - [ ] Record a Loom video showing the architecture diagram, Swagger demo, database record, duplicate match, admin status update, and analytics
 - [ ] Add the public repository, deployment URL, and Loom URL to the final submission form
 - [ ] Rotate all demonstration credentials before publishing
