@@ -4,33 +4,33 @@ CrisisDesk AI is a backend-only emergency and public-service triage API built fo
 
 ## Feature checklist
 
-- All six required report endpoints, including filterable list and summary analytics
-- Gemini structured-output classification, summaries, recommended actions, and confidence scores
-- Safe deterministic fallback for local development; strict AI mode for deployment and judging
-- Hybrid duplicate detection using description, location, category, and a seven-day active-report window
-- PostgreSQL persistence through Prisma with enums, indexes, migration, and seed data
-- Zod request validation, Unicode-aware sanitization, size limits, and structured errors
-- Bangla and English input support
-- JWT authentication for admin PATCH and DELETE operations
-- API rate limiting, Helmet, CORS, compression, and body limits
-- Interactive Swagger UI and downloadable OpenAPI document
-- Dockerfile, Docker Compose, integration tests, and graceful shutdown
+- [x] All six required report endpoints, including filterable list and summary analytics
+- [x] Gemini structured-output classification, summaries, recommended actions, and confidence scores
+- [x] Safe deterministic fallback for local development and strict AI mode for judging
+- [x] Hybrid duplicate detection using description, location, category, and a seven-day active-report window
+- [x] PostgreSQL persistence through Prisma with enums, indexes, migrations, and admin seed data
+- [x] Zod request validation, Unicode-aware sanitization, size limits, and structured errors
+- [x] Bangla and English input support
+- [x] JWT authentication for protected admin operations
+- [x] API rate limiting, Helmet, CORS, compression, and body limits
+- [x] Interactive Swagger UI and downloadable OpenAPI document
+- [x] Dockerfile, Docker Compose, integration tests, and graceful shutdown
 
 ## Architecture
 
 ```mermaid
-flowchart LR
-    C[Citizen / API client] -->|POST report| E[Express routes]
-    A[Admin client] -->|JWT| E
-    E --> Z[Zod validation + sanitization]
-    Z --> S[Report service]
-    S --> G[Gemini structured triage]
-    G -. provider unavailable .-> F[Deterministic fallback]
-    S --> D[Hybrid duplicate detector]
-    D --> R[Repository]
+graph LR
+    C["Citizen or API client"] -->|"POST report"| E["Express routes"]
+    A["Admin client"] -->|"JWT"| E
+    E --> Z["Zod validation and sanitization"]
+    Z --> S["Report service"]
+    S --> G["Gemini structured triage"]
+    G -.->|"Fallback on provider outage"| F["Deterministic classifier"]
+    S --> D["Hybrid duplicate detector"]
+    D --> R["Repository"]
     S --> R
-    R --> P[(PostgreSQL)]
-    E --> W[Swagger / OpenAPI]
+    R --> P[("PostgreSQL")]
+    E --> W["Swagger and OpenAPI"]
 ```
 
 The HTTP layer only handles transport. `ReportService` coordinates the use case, `TriageService` hides the external AI provider, `DuplicateService` owns similarity scoring, and `ReportRepository` isolates persistence. Tests replace the database and AI behind those interfaces, while production uses Prisma and Gemini.
@@ -193,7 +193,7 @@ This project uses Express, TypeScript, Prisma, PostgreSQL, Zod, Google Gen AI SD
 
 ## Submission checklist
 
-- [ ] Create a new public GitHub repository and push this code during the allowed round
+- [x] Create a new public GitHub repository and push this code during the allowed round
 - [ ] Deploy the API and verify the live `/health`, `/docs`, and report submission endpoints
 - [ ] Record a Loom video showing the architecture diagram, Swagger demo, database record, duplicate match, admin status update, and analytics
 - [ ] Add the public repository, deployment URL, and Loom URL to the final submission form
