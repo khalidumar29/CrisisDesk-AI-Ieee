@@ -22,10 +22,10 @@ services:
       PORT: 4000
       DATABASE_URL: postgresql://crisisdesk:crisisdesk@postgres:5432/crisisdesk?schema=public
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
-      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash-lite}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.5-flash}
       AI_REQUIRED: ${AI_REQUIRED:-false}
       JWT_SECRET: ${JWT_SECRET:-replace-this-before-deployment-123456}
-      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@crisisdesk.local}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@crisisdesk.app}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-change-me-now}
       CORS_ORIGIN: ${CORS_ORIGIN:-*}
     ports:

@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: crisisdesk-ai-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    preDeployCommand: npm run prisma:deploy && npm run db:seed:prod
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-3.5-flash
+      - key: AI_REQUIRED
+        value: "true"
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 8h
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: CORS_ORIGIN
+        value: "*"
+      - key: RATE_LIMIT_WINDOW_MS
+        value: "900000"
+      - key: RATE_LIMIT_MAX
+        value: "120"
+      - key: DUPLICATE_THRESHOLD
+        value: "0.62"

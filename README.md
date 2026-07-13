@@ -78,7 +78,7 @@ ADMIN_PASSWORD=<the-admin-password>
 
 ### AI modes
 
-Set `GEMINI_API_KEY` to use Google's Gemini API. The API sends the report description, location, and declared language to Gemini and requires a structured JSON result whose category, urgency, string lengths, and confidence are validated again with Zod before storage. The default model is `gemini-2.5-flash-lite`, configurable through `GEMINI_MODEL`.
+Set `GEMINI_API_KEY` to use Google's Gemini API. The API sends the report description, location, and declared language to Gemini and requires a structured JSON result whose category, urgency, string lengths, and confidence are validated again with Zod before storage. The default model is `gemini-3.5-flash`, configurable through `GEMINI_MODEL`.
 
 - `AI_REQUIRED=false` (default): Gemini is used when configured; a local deterministic classifier handles a missing key or provider outage. This keeps development and tests available offline. Stored reports identify the actual provider in `aiProvider`.
 - `AI_REQUIRED=true`: startup fails without a key and report creation returns `503` if Gemini fails. Use this for judging or production when every classification must be AI-generated.
@@ -182,8 +182,9 @@ For Render, Railway, Fly.io, or a similar service:
 1. Provision PostgreSQL and set `DATABASE_URL`.
 2. Set `GEMINI_API_KEY`, `AI_REQUIRED=true`, a random 32+ character `JWT_SECRET`, and strong admin credentials.
 3. Build with `npm ci && npm run build`.
-4. Start with `npm run prisma:deploy && npm start`.
-5. Point the health check to `/health`, then verify `/docs` and submit a real AI-classified test report.
+4. Run the release commands with `npm run prisma:deploy && npm run db:seed:prod`.
+5. Start with `npm start`.
+6. Point the health check to `/health`, then verify `/docs` and submit a real AI-classified test report.
 
 The included Dockerfile uses a multi-stage build and runs as the unprivileged `node` user.
 
